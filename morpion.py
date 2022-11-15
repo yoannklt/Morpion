@@ -103,6 +103,8 @@ def jeu():
             joueurTour = joueur1
 
         coupCorrect = False
-
+    replay = input("Rejouer? : ")
+    if replay == "Oui" :
+        jeu()
 
 jeu()
