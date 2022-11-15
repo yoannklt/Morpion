@@ -1,15 +1,19 @@
 from random import randint
-
-tableJeu = [['-','-','-'],['-','-','-'],['-','-','-']]
+caseJouable = True
+joueur1 = input("Joueur 1 quel est votre pseudo ?: ")
+joueur2 = input("Joueur 2 quel est votre pseudo ?: ")
+tableJeu = [["-","-","-"],["-","-","-"],["-","-","-"]]
 
 def showTable(tableJeu):
     for row in tableJeu :
-        for item in row:
-            print(item, end="  ")
+        for item in row :
+            print(item, end=" ")
         print()
 
-def caseRemplie(board, posx, posy):
-    if board[posx][posy] == '-':
+showTable(tableJeu)
+
+def caseRemplie(tableJeu, posx, posy):
+    if tableJeu[posx][posy] == "-" :
         return False
     else:
         return True
@@ -66,52 +70,53 @@ def is_board_filled(board):
     return True
 #######################
 
-
-def jeu():
-    joueur1 = input("Joueur 1, choisissez votre pseudo : ")
-    joueur2 = input("Joueur 2, choisissez votre pseudo : ")
+def game():
+    global joueur1, joueur2
     coupJoueur1 = "X"
     coupJoueur2 = "O"
-    startingPlayer = randint(1,2)
-    if startingPlayer == 1 :
-        print(joueur1 + " commence à jouer")
+    premierJoueur = randint(1,2)
+    if premierJoueur == 1 :
+        print(joueur1 + " vous commencez à jouer avec les X")
         joueurTour = joueur1
         coupJoueur = coupJoueur1
-    else : 
-        print(joueur2 + " commence à jouer")
+    else :
+        print(joueur2 + " vous commencez à jouer avec les O")
         joueurTour = joueur2
         coupJoueur = coupJoueur2
     coupCorrect = False
-    winJ = False 
+    joueurGagnant = False
     showTable(tableJeu)
-    while winJ == False:
+    while joueurGagnant == False :
         while coupCorrect == False :
             print("Tour de " + joueurTour)
-            choiceX = int(input("Choisissez la ligne à modifier: "))
-            choiceY = int(input("Choisissez la colonne à modifier: "))
-            if caseRemplie(tableJeu, choiceX, choiceY) != True:
+            choiceX = int(input("Quel ligne voulez-vous modifier (0-2) ?: "))
+            choiceY = int(input("Quel colonne voulez-vous modifier (0-2) ?: "))
+            if caseRemplie(tableJeu, choiceX, choiceY) != True :
                 tableJeu[choiceX][choiceY] = coupJoueur
-                coupCorrect = True 
+                coupCorrect = True
         showTable(tableJeu)
 
         if is_player_win(tableJeu, coupJoueur):
-            print("Le joueur " + joueurTour +  " a gagné ! :)")
+            print("Le joueur " + joueurTour + " a gagné ! :)")
             break
-        
+
         if is_board_filled(tableJeu):
             print("Egalité !")
             break
 
-        if coupJoueur == coupJoueur1:
+        if coupJoueur == coupJoueur1 :
             coupJoueur = coupJoueur2
             joueurTour = joueur2
-        else : 
+        else :
             coupJoueur = coupJoueur1
             joueurTour = joueur1
 
         coupCorrect = False
-    replay = input("Rejouer? : ")
-    if replay == "Oui" :
-        jeu()
+    replay = input("Voulez-vous rejouer ?: ")
+    if replay == "Oui" or "oui" :
+        game()
+    else :
+        print("Veuillez saisir Oui si vous voulez rejouer et Non si vous souhaitez quitter le jeu")
+        replay = input("Voulez-vous rejouer ?: ")
 
-jeu()
+game()
