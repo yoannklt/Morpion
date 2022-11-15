@@ -68,12 +68,19 @@ def is_board_filled(board):
 
 
 def jeu():
-    joueur1 = input("joueur 1 choisissez votre pseudo : ")
-    joueur2 = input("joueur 2 choisissez votre pseudo : ")
+    joueur1 = input("Joueur 1, choisissez votre pseudo : ")
+    joueur2 = input("Joueur 2, choisissez votre pseudo : ")
     coupJoueur1 = "X"
     coupJoueur2 = "O"
-    coupJoueur = coupJoueur1
-    joueurTour = joueur1
+    startingPlayer = randint(1,2)
+    if startingPlayer == 1 :
+        print(joueur1 + " commence à jouer")
+        joueurTour = joueur1
+        coupJoueur = coupJoueur1
+    else : 
+        print(joueur2 + " commence à jouer")
+        joueurTour = joueur2
+        coupJoueur = coupJoueur2
     coupCorrect = False
     winJ = False 
     showTable(tableJeu)
