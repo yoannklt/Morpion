@@ -97,6 +97,7 @@ def game():
 
         if is_player_win(tableJeu, coupJoueur):
             print("Le joueur " + joueurTour + " a gagné ! :)")
+            joueurGagnant = True
             break
 
         if is_board_filled(tableJeu):
@@ -111,13 +112,17 @@ def game():
             joueurTour = joueur1
 
         coupCorrect = False
-    replay = input("Voulez-vous rejouer ?: ")
-    if replay == "Oui" or "oui" :
-        tableJeu = [['-','-','-'],['-','-','-'],['-','-','-']]
-        showTable(tableJeu)
-        game()
-    else :
-        print("Veuillez saisir Oui si vous voulez rejouer et Non si vous souhaitez quitter le jeu")
+    while joueurGagnant :
         replay = input("Voulez-vous rejouer ?: ")
+        if replay == "Oui" or replay == "oui" :
+            tableJeu = [['-','-','-'],['-','-','-'],['-','-','-']]
+            showTable(tableJeu)
+            game()
+        elif replay == "Non" or replay == "non" :
+            print("D'accord à la prochaine !")
+            joueurGagnant = False
+        else :
+            print("Veuillez saisir Oui si vous voulez rejouer et Non si vous souhaitez quitter le jeu")
+            continue
 
 game()
