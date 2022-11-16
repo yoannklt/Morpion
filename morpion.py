@@ -71,7 +71,7 @@ def is_board_filled(board):
 #######################
 
 def game():
-    global joueur1, joueur2
+    global joueur1, joueur2, tableJeu
     coupJoueur1 = "X"
     coupJoueur2 = "O"
     premierJoueur = randint(1,2)
@@ -85,7 +85,6 @@ def game():
         coupJoueur = coupJoueur2
     coupCorrect = False
     joueurGagnant = False
-    showTable(tableJeu)
     while joueurGagnant == False :
         while coupCorrect == False :
             print("Tour de " + joueurTour)
@@ -114,6 +113,8 @@ def game():
         coupCorrect = False
     replay = input("Voulez-vous rejouer ?: ")
     if replay == "Oui" or "oui" :
+        tableJeu = [['-','-','-'],['-','-','-'],['-','-','-']]
+        showTable(tableJeu)
         game()
     else :
         print("Veuillez saisir Oui si vous voulez rejouer et Non si vous souhaitez quitter le jeu")
