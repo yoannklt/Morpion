@@ -128,11 +128,11 @@ def ia(tableau):
     elif bonCourage(tableJeu, 'O') == False:
         print("c")
         if bonCourage(tableJeu, 'X') == False:
-            if tableau[1][0] == '-' :
+            if tableau[1][0] == '-' and tableau[0][1] != '-' and tableau[0][2] != coupJoueur:
                 coupIA(tableau, 1, 0)
             elif tableau[1][0] != '-' and tableau[1][2] != coupJoueur :
                 coupIA(tableau,1,2)
-            elif tableau[1][0] != '-' and tableau[1][2] != '-' :
+            elif tableau[1][0] != '-' and tableau[1][2] != '-' and tableau[0][1] != coupJoueur and tableau[0][1] != '-':
                 coupIA(tableau,0,1)
    
 def game():
@@ -160,6 +160,7 @@ def game():
 
         if isBoardFilled(tableJeu):
             print("Egalité !")
+            joueurGagnant = True
             break
 
         coupCorrect = False
