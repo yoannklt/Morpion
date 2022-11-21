@@ -79,27 +79,6 @@ def coupIA(tableau, x, y):
 
 
 
-def ia(tableau):
-    global gameRound, coupMilieuIA, coupMilieuJoueur
-    if tableau[1][1] == '-' : 
-        coupMilieuIA = True
-        tableau[1][1] = 'O'
-    elif tableau[1][1] != '-' and tableau[1][1] == coupJoueur :
-        coupMilieuJoueur = True
-        tableau[0][0] = 'O'
-    elif tableau[2][2] == 'X' :
-        tableau[1][0] = coupIA(tableau, 1,0)
-    elif bonCourage(tableJeu, 'O') == False:
-        if bonCourage(tableJeu, 'X') == False:
-            if tableau[1][0] == '-' :
-                coupIA(tableau, 1, 0)
-            else :
-                coupIA(tableau,1,2)
-            
-   
-    print(bonCourage(tableJeu, 'O'))
-    print(bonCourage(tableJeu, 'X'))
-
 
 def isIaWin(case1, case2, case3, coupDuJoueur) :
     if case1 == case2 == coupDuJoueur and case3 == '-' :
@@ -128,13 +107,34 @@ def bonCourage(tableau, coupDuJoueur):
     #print(diagonale2)
     if diagonale1!= False :
         tableau[diagonale1[1]][diagonale1[1]] = 'O'
-        return tableau
+        return False
     if diagonale2!= False :
         tableau[diagonale2[1]][2 - diagonale2[1]] = 'O'
-        return tableau
+        return False
     
     return False
 
+
+def ia(tableau):
+    global gameRound, coupMilieuIA, coupMilieuJoueur
+    if tableau[1][1] == '-' : 
+        print("a")
+        coupMilieuIA = True
+        tableau[1][1] = 'O'
+    elif tableau[1][1] != '-' and tableau[0][0] == '-' :
+        print("b")
+        coupMilieuJoueur = True
+        tableau[0][0] = 'O'
+    elif bonCourage(tableJeu, 'O') == False:
+        print("c")
+        if bonCourage(tableJeu, 'X') == False:
+            if tableau[1][0] == '-' :
+                coupIA(tableau, 1, 0)
+            elif tableau[1][0] != '-' and tableau[1][2] != coupJoueur :
+                coupIA(tableau,1,2)
+            elif tableau[1][0] != '-' and tableau[1][2] != '-' :
+                coupIA(tableau,0,1)
+   
 def game():
     global joueur, coupJoueur, tableJeu
     coupCorrect = False
