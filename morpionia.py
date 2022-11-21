@@ -77,9 +77,6 @@ def isBoardFilled(board):
 def coupIA(tableau, x, y):
     tableau[x][y] = 'O'
 
-
-
-
 def isIaWin(case1, case2, case3, coupDuJoueur) :
     if case1 == case2 == coupDuJoueur and case3 == '-' :
         return True, 2
@@ -95,22 +92,24 @@ def bonCourage(tableau, coupDuJoueur):
         colonne = isIaWin(tableau[0][i], tableau[1][i], tableau[2][i], coupDuJoueur)
         if ligne != False :
             tableau[i][ligne[1]] = 'O'
-            #print(ligne)
+            print("d")
             return True
         if colonne!= False :
             tableau[colonne[1]][i] = 'O'
-            #print(colonne)
+            print("e")
             return True 
     diagonale1 = isIaWin(tableau[0][0], tableau[1][1], tableau[2][2], coupDuJoueur)
     diagonale2 = isIaWin(tableau[0][2], tableau[1][1], tableau[2][0], coupDuJoueur)
     #print(diagonale1)
     #print(diagonale2)
-    if diagonale1!= False :
+    if diagonale1 != False :
         tableau[diagonale1[1]][diagonale1[1]] = 'O'
-        return False
-    if diagonale2!= False :
+        print("f")
+        return True
+    if diagonale2 != False :
         tableau[diagonale2[1]][2 - diagonale2[1]] = 'O'
-        return False
+        print("g")
+        return True
     
     return False
 
@@ -121,19 +120,22 @@ def ia(tableau):
         print("a")
         coupMilieuIA = True
         tableau[1][1] = 'O'
-    elif tableau[1][1] != '-' and tableau[0][0] == '-' :
+    elif tableau[1][1] == 'X' and tableau[0][0] == '-':
         print("b")
         coupMilieuJoueur = True
         tableau[0][0] = 'O'
-    elif bonCourage(tableJeu, 'O') == False:
+    elif bonCourage(tableJeu, 'O') == False :
         print("c")
-        if bonCourage(tableJeu, 'X') == False:
+        if bonCourage(tableJeu, 'X') == False :
+            print
             if tableau[1][0] == '-' and tableau[0][1] != '-' and tableau[0][2] != coupJoueur:
                 coupIA(tableau, 1, 0)
-            elif tableau[1][0] != '-' and tableau[1][2] != coupJoueur :
+            elif (tableau[1][0] != '-' and tableau[1][2] != coupJoueur) or tableau[2][2] == coupJoueur or tableau[0][2] == coupJoueur:
                 coupIA(tableau,1,2)
             elif tableau[1][0] != '-' and tableau[1][2] != '-' and tableau[0][1] != coupJoueur and tableau[0][1] != '-':
                 coupIA(tableau,0,1)
+            if (tableau[0][2] == '-' or tableau[2][0] == '-' or tableau[2][2]) and caseRemplie(tableau, 2,2) == False :
+                coupIA(tableau,2,2)
    
 def game():
     global joueur, coupJoueur, tableJeu
@@ -143,9 +145,12 @@ def game():
         while coupCorrect == False :
             choiceX = int(input("Quel ligne voulez-vous modifier (0-2) ?: \n"))
             choiceY = int(input("Quel colonne voulez-vous modifier (0-2) ?: \n"))
-            if caseRemplie(tableJeu, choiceX, choiceY) != True :
+            if choiceX < 3 and choiceY < 3 and caseRemplie(tableJeu, choiceX, choiceY) != True :
                 tableJeu[choiceX][choiceY] = coupJoueur
                 coupCorrect = True
+            else :
+                print("Veuillez saisir une valeur entre 0 et 2")
+            continue
         ia(tableJeu)
         showTable(tableJeu)
         
