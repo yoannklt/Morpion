@@ -129,8 +129,10 @@ def ia(tableau):
         print("c")
         if bonCourage(tableJeu, 'X') == False :
 
-            if tableau[1][0] == '-' and tableau[0][1] != '-' and tableau[0][2] == coupJoueur:
+            if tableau[2][2] == coupJoueur and tableau[0][0] == coupJoueur and caseRemplie(tableau,1,0) == False:
                 coupIA(tableau, 1, 0)
+            elif tableau[0][2] == coupJoueur and tableau[2][0] == coupJoueur and caseRemplie(tableau,1,2) == False:
+                coupIA(tableau,1,2)
             elif tableau[1][0] != coupJoueur and tableau[1][2] != '-' and tableau[0][1] != coupJoueur and tableau[0][1] != '-':
                 coupIA(tableau,0,1)
             elif tableau[0][1] == coupJoueur and tableau[1][0] == coupJoueur and caseRemplie(tableau,1,2) == False:
