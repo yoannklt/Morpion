@@ -131,9 +131,9 @@ def ia(tableau):
 
             if tableau[1][0] == '-' and tableau[0][1] != '-' and tableau[0][2] != coupJoueur:
                 coupIA(tableau, 1, 0)
-            elif tableau[1][2] == coupOrdi or tableau[2][2] == coupJoueur or (tableau[0][2] == coupJoueur and tableau[0][2] == coupJoueur):
+            elif (tableau[1][2] != '-' and tableau[1][2] != coupJoueur) or tableau[2][2] == coupJoueur and tableau[0][2] == coupJoueur and caseRemplie(tableau, 1,2) == True:
                 coupIA(tableau,1,2)
-            elif tableau[1][0] != '-' and tableau[1][2] != '-' and tableau[0][1] != coupJoueur and tableau[0][1] != '-':
+            elif tableau[1][0] != coupJoueur and tableau[1][2] != '-' and tableau[0][1] != coupJoueur and tableau[0][1] != '-':
                 coupIA(tableau,0,1)
             elif (tableau[0][2] == '-' or tableau[2][0] == '-' or tableau[2][2]) and caseRemplie(tableau, 2,2) == False :
                 coupIA(tableau,2,2)
