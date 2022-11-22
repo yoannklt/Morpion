@@ -1,6 +1,6 @@
 from random import randint
 caseJouable = True
-joueur = input("Quel est votre pseudo ?: \n")
+#joueur = input("Quel est votre pseudo ?: \n")
 coupJoueur = "X"
 coupOrdi = 'O'
 coupMilieuJoueur = False
@@ -129,15 +129,24 @@ def ia(tableau):
         print("c")
         if bonCourage(tableJeu, 'X') == False :
 
-            if tableau[1][0] == '-' and tableau[0][1] != '-' and tableau[0][2] != coupJoueur:
+            if tableau[1][0] == '-' and tableau[0][1] != '-' and tableau[0][2] == coupJoueur:
                 coupIA(tableau, 1, 0)
-            elif (tableau[1][2] != '-' and tableau[1][2] != coupJoueur) or tableau[2][2] == coupJoueur and tableau[0][2] == coupJoueur and caseRemplie(tableau, 1,2) == True:
-                coupIA(tableau,1,2)
             elif tableau[1][0] != coupJoueur and tableau[1][2] != '-' and tableau[0][1] != coupJoueur and tableau[0][1] != '-':
                 coupIA(tableau,0,1)
-            elif (tableau[0][2] == '-' or tableau[2][0] == '-' or tableau[2][2]) and caseRemplie(tableau, 2,2) == False :
+            elif tableau[0][1] == coupJoueur and tableau[1][0] == coupJoueur and caseRemplie(tableau,1,2) == False:
+                coupIA(tableau,2,0)
+            elif tableau[0][1] == coupJoueur and tableau[1][2] == coupJoueur and caseRemplie(tableau,2,2) == False:
                 coupIA(tableau,2,2)
-   
+            elif tableau[1][0] == coupJoueur and tableau[2][1] == coupJoueur and caseRemplie(tableau,2,0) == False : 
+                coupIA(tableau,2,0)
+            elif tableau[0][1] == tableau[1][0] == coupJoueur and caseRemplie(tableau,0,0) == False :
+                coupIA(tableau,0,0)
+            elif caseRemplie(tableau,0,2) == False :
+                coupIA(tableau,0,2)
+            elif caseRemplie(tableau,2,2) == False :
+                coupIA(tableau,2,2)
+            elif caseRemplie(tableau,2,0) == False :
+                coupIA(tableau,2,0)
 def game():
     global joueur, coupJoueur, tableJeu
     coupCorrect = False
